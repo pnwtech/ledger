@@ -1,4 +1,4 @@
-# Creating A DB Schema for Double-Entry Accounting using Next.js and Prism
+# Creating A DB Schema for Double-Entry Accounting using Next.js and Prisma
 
 ## Introduction
 
