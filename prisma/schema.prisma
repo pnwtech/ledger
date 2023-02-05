@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+}
+
+enum DebitCredit {
+  DEBIT
+  CREDIT
+}
+
+model Account {
+  id                    Int                 @id @default(autoincrement())
+  name                  String?
+  accountType           AccountType         @default(ASSET)
+  entries               Entry[]
+  balance               Int                 @default(0)
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+}
+
+model Entry {
+  id                    Int                 @id @default(autoincrement())
+  transactionId         Int
+  name                  String?
+  description           String?
+  debitCredit           DebitCredit
+  amount                Int
+  account               Account             @relation(fields: [accountId], references: [id])
+  accountId             Int
+
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+}
